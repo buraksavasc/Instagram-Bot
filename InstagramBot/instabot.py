@@ -1,5 +1,5 @@
 from selenium import webdriver
-from instagramUserInfo import username,password
+from InstagramUserInfo import username,password
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pynput.mouse import Controller, Button
@@ -11,6 +11,7 @@ import time
 
 class Instagram:
     def __init__(self,username,password):
+        self.__doscroll
         self.__random_sleep
         self.__makeScroll
         self.__makeCenter
@@ -52,11 +53,16 @@ class Instagram:
     def __makeScroll(self):
         mouse = Controller()
         scroll_direction = 'down' 
-        scroll_amount = 120
+        scroll_amount = 1000
         if scroll_direction == 'up':
             mouse.scroll(0, scroll_amount)
         elif scroll_direction == 'down':
             mouse.scroll(0, -scroll_amount)
+            
+    def __doscroll(self):
+        for i in range(30):
+            self.__makeScroll()
+            time.sleep(12)
             
     def getFollowers(self):
         self.__random_sleep(4,8)
@@ -66,7 +72,7 @@ class Instagram:
         time.sleep(10)
         self.__makeCenter()
         time.sleep(10)
-        self.__makeScroll()
+        self.__doscroll()
         time.sleep(10)
         followings = self.browser.find_elements(By.CSS_SELECTOR,value="div[role=dialog] button")
         count = 1
@@ -74,9 +80,9 @@ class Instagram:
             if(count == 1):
                 count +=1
                 continue
-            time.sleep(5)
+            self.__random_sleep(5,10)
             button.click()
-            time.sleep(5)
+            self.__random_sleep(4,7)
             self.__tiklama()
         time.sleep(100)
     
