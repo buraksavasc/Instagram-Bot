@@ -1,5 +1,5 @@
 from selenium import webdriver
-from InstagramUserInfo import username,password
+from instagramUserInfo import username,password
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pynput.mouse import Controller, Button
